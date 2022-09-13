@@ -1,0 +1,29 @@
+{
+  "name": "wild-apricot-slack-sync",
+  "version": "1.0.0",
+  "description": "Automatically fetch Wild Apricot members and see if any of them need to be invited to Slack",
+  "author": "Felix Rieseberg <felix@felixrieseberg.com>",
+  "scripts": {
+    "prettier": "npx prettier --write src/*",
+    "cli": "ts-node src/cli.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc",
+    "watch": "tsc -w"
+  },
+  "type": "module",
+  "bin": {
+    "slack-archive": "./bin/slack-archive.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@slack/web-api": "^6.7.2",
+    "command-line-args": "^5.2.1",
+    "node-fetch": "^3.2.10",
+    "ora": "^6.1.2"
+  },
+  "devDependencies": {
+    "@types/command-line-args": "^5.2.0",
+    "@types/inquirer": "^9.0.1",
+    "typescript": "^4.8.3"
+  }
+}
