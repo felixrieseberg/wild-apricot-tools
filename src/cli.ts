@@ -5,7 +5,7 @@ import path from "path";
 
 import { getWaAccount, getWaAuth, getWaMembers } from "./wildapricot.js";
 import { getSlackUsers } from "./slack.js";
-import { VERBOSE, WILD_APRICOT_KEY, WRITE_REPORT } from "./config.js";
+import { VERBOSE, WILD_APRICOT_KEY } from "./config.js";
 import { Member } from "./interfaces.js";
 
 const WA_OPTIONS = { apiKey: WILD_APRICOT_KEY };
