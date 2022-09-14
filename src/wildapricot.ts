@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import { VERBOSE } from "./config.js";
 import { Member } from "./interfaces";
 
 const OAUTH_TOKEN_URL = "https://oauth.wildapricot.org/auth/token";
@@ -121,12 +122,31 @@ export interface WildApricotContacts {
   Contacts: Array<WildApricotContact>;
 }
 
+export async function getWaFields() {
+  const { Id } = _cachedAccount;
+  const { access_token } = _cachedAuth;
+  const url = `${API_BASE_URL}/accounts/${Id}/contactfields`;
+
+  const response = await fetch(url, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+
+  const parsedResponse = (await response.json());
+
+  if (VERBOSE) {
+    console.log(parsedResponse);
+  }
+}
+
 export async function getWaMembers(): Promise<Array<Member>> {
   const { Id } = _cachedAccount;
   const { access_token } = _cachedAuth;
   const async = `?$async=false`;
   const select = `&$select=email`;
-  const filter = `&'Membership status.Id' eq 1`;
+  const filter = `&$filter='Membership status.Id' eq 1 AND Archived eq 'False'`;
   const url = `${API_BASE_URL}/accounts/${Id}/contacts${async}${select}${filter}`;
 
   const response = await fetch(url, {
@@ -138,6 +158,11 @@ export async function getWaMembers(): Promise<Array<Member>> {
 
   const parsedResponse = (await response.json()) as WildApricotContacts;
   const contacts = parsedResponse.Contacts;
+
+  if (VERBOSE) {
+    console.log(`Wild Apricot response:`)
+    const cloned = { ... parsedResponse, Contacts: `[ ${contacts.length } contacts ]` }
+  }
 
   // Cut this down
   const members: Array<Member> = contacts.map((contact) => ({
