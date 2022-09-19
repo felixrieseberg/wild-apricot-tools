@@ -129,7 +129,9 @@ export async function main() {
   const toRemoveFromSlack: Array<User> = [];
 
   for (const member of waMembers) {
-    const inSlack = slackUsers.some((v) => v.profile?.email === member.email);
+    const inSlack = slackUsers.some(
+      (v) => v.profile?.email?.toLowerCase() === member.email?.toLowerCase()
+    );
 
     if (VERBOSE) {
       console.log(
@@ -143,7 +145,9 @@ export async function main() {
   }
 
   for (const user of slackUsers) {
-    const inWaMembers = waMembers.some((v) => v.email === user.profile?.email);
+    const inWaMembers = waMembers.some(
+      (v) => v.email.toLowerCase() === user.profile?.email?.toLowerCase()
+    );
 
     if (VERBOSE) {
       console.log(

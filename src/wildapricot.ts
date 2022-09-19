@@ -134,7 +134,7 @@ export async function getWaFields() {
     },
   });
 
-  const parsedResponse = (await response.json());
+  const parsedResponse = await response.json();
 
   if (VERBOSE) {
     console.log(parsedResponse);
@@ -160,8 +160,11 @@ export async function getWaMembers(): Promise<Array<Member>> {
   const contacts = parsedResponse.Contacts;
 
   if (VERBOSE) {
-    console.log(`Wild Apricot response:`)
-    const cloned = { ... parsedResponse, Contacts: `[ ${contacts.length } contacts ]` }
+    console.log(`Wild Apricot response:`);
+    const cloned = {
+      ...parsedResponse,
+      Contacts: `[ ${contacts.length} contacts ]`,
+    };
   }
 
   // Cut this down
