@@ -174,4 +174,37 @@ export module WildApricot {
     ConfirmedRegistrationsCount: number;
     CheckedInAttendeesNumber: number;
   }
+
+  export interface EditDetails {
+    DescriptionHtml: string;
+    PaymentInstructions: string;
+    TimeZone: TimeZone;
+    AccessControl: AccessControl;
+    GuestRegistrationSettings: GuestRegistrationSettings;
+    Organizer: Organizer;
+    PaymentMethod: string;
+    RegistrationConfirmationExtraInfo: string;
+    RegistrationMessage: string;
+    SendEmailCopy: boolean;
+    IsWaitlistEnabled: boolean;
+    WaitlistSettings: WaitlistSettings;
+    MultipleRegistrationAllowed: boolean;
+    AttendeesDisplaySettings: AttendeesDisplaySettings;
+  }
+
+  export interface EventEdit {
+    Id: number;
+    Name?: string;
+    EventType?: string;
+    StartDate?: string;
+    StartTimeSpecified?: boolean;
+    EndDate?: string;
+    EndTimeSpecified?: boolean;
+    Location?: string;
+    RegistrationEnabled?: boolean;
+    Tags?: string[];
+    Details?: Partial<EditDetails>;
+    Sessions?: Session[];
+    RegistrationsLimit?: number;
+  }
 }

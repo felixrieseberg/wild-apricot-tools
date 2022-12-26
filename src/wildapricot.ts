@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import fetch, { Response } from "node-fetch";
 import { VERBOSE } from "./config.js";
 import { Member, WildApricot } from "./interfaces";
 
@@ -200,7 +200,7 @@ export async function getWaEvents(
   const url = `${API_BASE_URL}/accounts/${Id}/events${async}${filter}`;
 
   if (VERBOSE) {
-    console.log(`Calling ${url}`);
+    console.log(`Calling GET ${url}`);
   }
 
   const response = await fetch(url, {
@@ -209,6 +209,8 @@ export async function getWaEvents(
       Authorization: `Bearer ${access_token}`,
     },
   });
+
+  await checkResponse(response);
 
   const parsedResponse = (await response.json()) as WildApricotEvents;
   const events = parsedResponse.Events;
@@ -225,32 +227,24 @@ export async function getWaEvents(
   return events;
 }
 
-export async function updateWaEvent(
-  event: WildApricot.Event
-): Promise<WildApricot.Event> {
+export async function getWaEvent(id: number): Promise<WildApricot.Event> {
   const { Id } = _cachedAccount;
   const { access_token } = _cachedAuth;
-  const url = `${API_BASE_URL}/accounts/${Id}/events/${event.Id}`;
+  const url = `${API_BASE_URL}/accounts/${Id}/events/${id}`;
 
   if (VERBOSE) {
-    console.log(`Calling ${url}`);
+    console.log(`Calling GET ${url}`);
   }
 
   const response = await fetch(url, {
-    method: "PUT",
-    body: JSON.stringify(event),
+    method: "GET",
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${access_token}`,
-      "Content-Type": "application/json",
     },
   });
 
-  if (!response.ok) {
-    throw new Error(
-      `Response not ok (was: ${response.status} ${response.statusText})`
-    );
-  }
+  await checkResponse(response);
 
   const parsedResponse = (await response.json()) as WildApricot.Event;
 
@@ -260,4 +254,83 @@ export async function updateWaEvent(
   }
 
   return parsedResponse;
+}
+
+export async function updateWaEvent(
+  edit: WildApricot.EventEdit
+): Promise<WildApricot.Event> {
+  const { Id } = _cachedAccount;
+  const { access_token } = _cachedAuth;
+  const url = `${API_BASE_URL}/accounts/${Id}/events/${edit.Id}`;
+  const body = JSON.stringify(edit);
+
+  if (VERBOSE) {
+    console.log(`Calling PUT ${url}`);
+    console.log({ body });
+  }
+
+  const response = await fetch(url, {
+    method: "PUT",
+    body,
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${access_token}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  await checkResponse(response);
+
+  const parsedResponse = (await response.json()) as WildApricot.Event;
+
+  if (VERBOSE) {
+    console.log(`Wild Apricot response:`);
+    console.log(parsedResponse);
+  }
+
+  return parsedResponse;
+}
+
+export async function cloneWaEvent(id: number): Promise<number> {
+  const { Id } = _cachedAccount;
+  const { access_token } = _cachedAuth;
+  const url = `${API_BASE_URL}/rpc/${Id}/cloneevent`;
+  const body = JSON.stringify({ EventId: id });
+
+  if (VERBOSE) {
+    console.log(`Calling POST ${url}`);
+    console.log({ body });
+  }
+
+  const response = await fetch(url, {
+    method: "POST",
+    body,
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${access_token}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  await checkResponse(response);
+
+  const parsedResponse = await response.text();
+
+  if (VERBOSE) {
+    console.log(`Wild Apricot response:`);
+    console.log(parsedResponse);
+  }
+
+  return parseInt(parsedResponse, 10);
+}
+
+async function checkResponse(response: Response) {
+  if (!response.ok) {
+    console.log(
+      `Response not ok (was: ${response.status} ${response.statusText})`
+    );
+    console.log(await response.text());
+
+    throw new Error(`Response was not ok`);
+  }
 }

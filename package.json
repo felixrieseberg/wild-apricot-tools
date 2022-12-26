@@ -18,6 +18,7 @@
   "dependencies": {
     "@slack/web-api": "^6.7.2",
     "command-line-args": "^5.2.1",
+    "date-fns": "^2.29.3",
     "node-fetch": "^3.2.10",
     "ora": "^6.1.2"
   },

@@ -34,7 +34,7 @@ async function loadUpdateWaEvent(event: WildApricot.Event) {
 
   try {
     const updatedEvent = await updateWaEvent({
-      ...event,
+      Id: event.Id,
       Name: NEW_EVENT_NAME,
     });
 
@@ -57,6 +57,4 @@ export async function renameEvents() {
       await loadUpdateWaEvent(event);
     }
   }
-
-  console.log(`All done`);
 }

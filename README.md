@@ -40,6 +40,24 @@ You have a bunch of events. You would like to rename them all.
 npx wild-apricot-tools rename-events --start-date="2023-01-01" --wild-apricot-api-key="..." --old-event-name="[Swim] Masters Swim" --new-event-name="[Swim] Garfield Masters Swim"
 ```
 
+## Clone Event
+You have one event. You want it cloned, say, every week for the rest of the year. Uses the current system's time zone.
+
+### Usage
+
+```
+--wild-apricot-api-key="abc..."     Wild Apricot API Key
+--event-id="123456"                 Id of the event to clone
+--schedule="weekly"                 Schedule to use. Only "weekly" is supported.
+--end-date="2024-12-25"             End date.
+--dry-run                           Dry run only, only print events to create.
+--verbose                           Enable verbose mode
+```
+
+```
+npx wild-apricot-tools rename-events --start-date="2023-01-01" --wild-apricot-api-key="..." --old-event-name="[Swim] Masters Swim" --new-event-name="[Swim] Garfield Masters Swim"
+```
+
 ## Getting a Wild Apricot API Key
 
 Please see https://gethelp.wildapricot.com/en/articles/180-authorizing-external-applications

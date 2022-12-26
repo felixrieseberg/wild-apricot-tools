@@ -3,12 +3,14 @@ import ora from "ora";
 import { getWaAccount, getWaAuth } from "./wildapricot.js";
 import {
   COMMAND,
+  COMMAND_CLONE_EVENT,
   COMMAND_RENAME_EVENTS,
   COMMAND_SLACK_SYNC,
   WILD_APRICOT_KEY,
 } from "./config.js";
 import { slackSync } from "./slack-sync.js";
 import { renameEvents } from "./rename-events.js";
+import { cloneEvent } from "./clone-event.js";
 
 async function loadWaAuth() {
   let spinner = ora(
@@ -43,7 +45,9 @@ async function loadWaAccounts() {
 
 export async function main() {
   if (!COMMAND) {
-    console.log(`No command specified. Please see the wild-apricot-tools README!`);
+    console.log(
+      `No command specified. Please see the wild-apricot-tools README!`
+    );
     process.exit();
   }
 
@@ -56,6 +60,8 @@ export async function main() {
     await slackSync();
   } else if (COMMAND === COMMAND_RENAME_EVENTS) {
     await renameEvents();
+  } else if (COMMAND === COMMAND_CLONE_EVENT) {
+    await cloneEvent();
   }
 }
 
