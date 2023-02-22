@@ -9,7 +9,7 @@ const argv = mainOptions._unknown || [];
 let optionDefinitions: Array<commandLineArgs.OptionDefinition> = [];
 
 export const COMMAND_SLACK_SYNC = "slack-sync";
-export const COMMAND_RENAME_EVENTS = "rename-events";
+export const COMMAND_UPDATE_EVENTS = "update-events";
 export const COMMAND_CLONE_EVENT = "clone-event";
 export const COMMAND_EVENT_REGISTRATIONS = "event-registrations";
 export const COMMAND = mainOptions.command;
@@ -25,12 +25,12 @@ if (COMMAND === COMMAND_SLACK_SYNC) {
     ...defaultOptions,
     { name: "slack-token", alias: "s", type: String },
   ];
-} else if (COMMAND === COMMAND_RENAME_EVENTS) {
+} else if (COMMAND === COMMAND_UPDATE_EVENTS) {
   optionDefinitions = [
     ...defaultOptions,
-    { name: "old-event-name", type: String },
-    { name: "new-event-name", type: String },
+    { name: "event-name", type: String },
     { name: "start-date", type: String },
+    { name: "data", type: String },
   ];
 } else if (COMMAND === COMMAND_CLONE_EVENT) {
   optionDefinitions = [
@@ -44,7 +44,6 @@ if (COMMAND === COMMAND_SLACK_SYNC) {
     ...defaultOptions,
     { name: "event-name", type: String },
     { name: "start-date", type: String },
-    { name: "out-file", type: String },
   ];
 }
 
@@ -53,20 +52,20 @@ const options = commandLineArgs(optionDefinitions, { argv });
 export const WILD_APRICOT_KEY = options["wild-apricot-api-key"];
 export const VERBOSE = options["verbose"];
 export const DRY_RUN = options["dry-run"];
+export const EVENT_NAME = options["event-name"];
 
 // Slack-Sync
 export const SLACK_TOKEN = options["slack-token"];
-checkParameters(COMMAND_RENAME_EVENTS, ["wild-apricot-api-key", "slack-token"]);
+checkParameters(COMMAND_SLACK_SYNC, ["wild-apricot-api-key", "slack-token"]);
 
 // Rename events
-export const OLD_EVENT_NAME = options["old-event-name"];
-export const NEW_EVENT_NAME = options["new-event-name"];
+export const DATA = options["data"];
 export const START_DATE = options["start-date"];
-checkParameters(COMMAND_RENAME_EVENTS, [
+checkParameters(COMMAND_UPDATE_EVENTS, [
   "wild-apricot-api-key",
-  "old-event-name",
-  "new-event-name",
+  "event-name",
   "start-date",
+  "data",
 ]);
 
 // Clone events
@@ -81,7 +80,6 @@ checkParameters(COMMAND_CLONE_EVENT, [
 ]);
 
 // Cancellations
-export const EVENT_NAME = options["event-name"];
 checkParameters(COMMAND_EVENT_REGISTRATIONS, [
   "wild-apricot-api-key",
   "event-name",

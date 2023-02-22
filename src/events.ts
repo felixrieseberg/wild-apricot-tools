@@ -1,31 +1,14 @@
 import ora from "ora";
 
 import {
-  cloneWaEvent,
-  getWaEvent,
   getWaEventRegistrations,
   getWaEvents,
   updateWaEvent,
 } from "./wildapricot.js";
-import {
-  DRY_RUN,
-  END_DATE,
-  EVENT_ID,
-  NEW_EVENT_NAME,
-  OLD_EVENT_NAME,
-  SCHEDULE,
-  START_DATE,
-  VERBOSE,
-} from "./config.js";
+import { END_DATE, SCHEDULE } from "./config.js";
 import { WildApricot } from "./interfaces.js";
 import { getEventName } from "./helpers.js";
-import {
-  addWeeks,
-  differenceInWeeks,
-  format,
-  formatISO,
-  parseISO,
-} from "date-fns";
+import { addWeeks, differenceInWeeks, parseISO } from "date-fns";
 
 const SCHEDULES = {
   WEEKLY: "weekly",

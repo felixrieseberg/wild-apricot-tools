@@ -23,22 +23,30 @@ npx wild-apricot-tools slack-sync --wild-apricot-api-key="etwl..." --slack-token
 
 Then, find a file called `wild-apricot-slack-sync-report.txt` in your working directory. It'll contain a list of people to invite and to deactivate.
 
-## Rename Events
-You have a bunch of events. You would like to rename them all.
+## Update Events
+You have a bunch of events. You would like to update them all.
 
 ### Usage
 
 ```
 --wild-apricot-api-key="abc..."     Wild Apricot API Key
---old-event-name="[Swim]..."        Old Event Name
---new-event-name="[Swim]..."        New Event Name
---dry-run                           Dry run only, only print events to rename
+--event-name="[Swim]..."            Event Name
+--start-date="2024-12-25"           When do we start looking for events?
+--data="data.json"                  Path to a JSON file containing updates - or raw JSON
+--data="{ Name: \"New Name\"}"
+--dry-run                           Dry run only, only print events to update
 --verbose                           Enable verbose mode
 ```
 
 ```
-npx wild-apricot-tools rename-events --start-date="2023-01-01" --wild-apricot-api-key="..." --old-event-name="[Swim] Masters Swim" --new-event-name="[Swim] Garfield Masters Swim"
+npx wild-apricot-tools update-events --start-date="2023-01-01" --event-name="[Swim] Masters Swim" 
+--wild-apricot-api-key="..." --data="data.json"
 ```
+
+#### Update Data
+The update data will be sent directly to Wild Apricot. For the data model, please see
+[API docs](https://app.swaggerhub.com/apis-docs/WildApricot/wild-apricot_public_api/7.24.0) and look for the model "EventEditParams". 
+
 
 ## Clone Event
 You have one event. You want it cloned, say, every week for the rest of the year. Uses the current system's time zone.
@@ -55,7 +63,7 @@ You have one event. You want it cloned, say, every week for the rest of the year
 ```
 
 ```
-npx wild-apricot-tools rename-events --start-date="2023-01-01" --wild-apricot-api-key="..." --old-event-name="[Swim] Masters Swim" --new-event-name="[Swim] Garfield Masters Swim"
+npx wild-apricot-tools clone-events --event-id="12345" --end-date="2023-12-01" --schedule="weekly" --wild-apricot-api-key="..."
 ```
 
 ## Getting a Wild Apricot API Key

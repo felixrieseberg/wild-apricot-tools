@@ -1,7 +1,7 @@
 import ora from "ora";
 
 import { cloneWaEvent, getWaEvent, updateWaEvent } from "./wildapricot.js";
-import { DRY_RUN, EVENT_ID, NEW_EVENT_NAME, VERBOSE } from "./config.js";
+import { DRY_RUN, EVENT_ID, EVENT_NAME, VERBOSE } from "./config.js";
 import { WildApricot } from "./interfaces.js";
 import { format, formatISO } from "date-fns";
 import { getDatesFromSchedule } from "./events.js";
@@ -34,7 +34,7 @@ export async function cloneEvent() {
 
     const editOptions: WildApricot.EventEdit = {
       Id: clonedEventId,
-      Name: NEW_EVENT_NAME,
+      Name: EVENT_NAME,
       StartDate: newStartDate,
       EndDate: newEndDate,
       Details: {

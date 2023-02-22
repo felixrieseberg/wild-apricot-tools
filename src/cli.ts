@@ -5,12 +5,12 @@ import {
   COMMAND,
   COMMAND_CLONE_EVENT,
   COMMAND_EVENT_REGISTRATIONS,
-  COMMAND_RENAME_EVENTS,
+  COMMAND_UPDATE_EVENTS,
   COMMAND_SLACK_SYNC,
   WILD_APRICOT_KEY,
 } from "./config.js";
 import { slackSync } from "./slack-sync.js";
-import { renameEvents } from "./events-rename.js";
+import { updateEvents } from "./events-update.js";
 import { cloneEvent } from "./events-clone.js";
 import { loadEventRegistrations } from "./events-registrations.js";
 
@@ -60,8 +60,8 @@ export async function main() {
   // Figure out what we want to do
   if (COMMAND === COMMAND_SLACK_SYNC) {
     await slackSync();
-  } else if (COMMAND === COMMAND_RENAME_EVENTS) {
-    await renameEvents();
+  } else if (COMMAND === COMMAND_UPDATE_EVENTS) {
+    await updateEvents();
   } else if (COMMAND === COMMAND_CLONE_EVENT) {
     await cloneEvent();
   } else if (COMMAND === COMMAND_EVENT_REGISTRATIONS) {
