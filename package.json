@@ -1,6 +1,6 @@
 {
   "name": "wild-apricot-tools",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Automatically fetch Wild Apricot members and see if any of them need to be invited to Slack",
   "author": "Felix Rieseberg <felix@felixrieseberg.com>",
   "scripts": {
