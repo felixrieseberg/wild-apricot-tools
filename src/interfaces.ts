@@ -207,4 +207,63 @@ export module WildApricot {
     Sessions?: Session[];
     RegistrationsLimit?: number;
   }
+
+  export interface Contact {
+    Id: number;
+    Url: string;
+    Name: string;
+  }
+
+  export interface RegistrationType {
+    Id: number;
+    Url: string;
+    Name: string;
+  }
+
+  export interface GuestRegistration {
+    Id: number;
+    Url: string;
+  }
+
+  export interface GuestRegistrationsSummary {
+    NumberOfGuests: number;
+    NumberOfGuestsCheckedIn: number;
+    GuestRegistrations: GuestRegistration[];
+  }
+
+  export interface RegistrationField {
+    FieldName: string;
+    SystemCode: string;
+    Value: any;
+  }
+
+  export interface ParentRegistration {
+    Id: number;
+    Url: string;
+  }
+
+  export interface EventRegistration {
+    Id: number;
+    Url: string;
+    Event: Event;
+    Contact: Contact;
+    RegistrationType: RegistrationType;
+    RegistrationTypeId: number;
+    GuestRegistrationsSummary: GuestRegistrationsSummary;
+    DisplayName: string;
+    Organization: string;
+    IsCheckedIn: boolean;
+    RegistrationFee: number;
+    PaidSum: number;
+    IsPaid: boolean;
+    RegistrationFields: RegistrationField[];
+    ShowToPublic: boolean;
+    RegistrationDate: string;
+    Memo: string;
+    IsGuestRegistration: boolean;
+    OnWaitlist: boolean;
+    RecreateInvoice: boolean;
+    ParentRegistration: ParentRegistration;
+    Status: string;
+  }
 }

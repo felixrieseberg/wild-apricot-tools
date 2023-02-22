@@ -324,6 +324,38 @@ export async function cloneWaEvent(id: number): Promise<number> {
   return parseInt(parsedResponse, 10);
 }
 
+export async function getWaEventRegistrations(
+  id: string | number
+): Promise<Array<WildApricot.EventRegistration>> {
+  const { Id } = _cachedAccount;
+  const { access_token } = _cachedAuth;
+  const url = `${API_BASE_URL}/accounts/${Id}/eventregistrations?eventId=${id}&includeWaitlist=true&includeDetails=true`;
+
+  if (VERBOSE) {
+    console.log(`Calling GET ${url}`);
+  }
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+
+  await checkResponse(response);
+
+  const parsedResponse =
+    (await response.json()) as Array<WildApricot.EventRegistration>;
+
+  if (VERBOSE) {
+    console.log(`Wild Apricot response:`);
+    console.log(parsedResponse);
+  }
+
+  return parsedResponse;
+}
+
 async function checkResponse(response: Response) {
   if (!response.ok) {
     console.log(

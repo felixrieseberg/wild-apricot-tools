@@ -4,13 +4,15 @@ import { getWaAccount, getWaAuth } from "./wildapricot.js";
 import {
   COMMAND,
   COMMAND_CLONE_EVENT,
+  COMMAND_EVENT_REGISTRATIONS,
   COMMAND_RENAME_EVENTS,
   COMMAND_SLACK_SYNC,
   WILD_APRICOT_KEY,
 } from "./config.js";
 import { slackSync } from "./slack-sync.js";
-import { renameEvents } from "./rename-events.js";
-import { cloneEvent } from "./clone-event.js";
+import { renameEvents } from "./events-rename.js";
+import { cloneEvent } from "./events-clone.js";
+import { loadEventRegistrations } from "./events-registrations.js";
 
 async function loadWaAuth() {
   let spinner = ora(
@@ -62,6 +64,8 @@ export async function main() {
     await renameEvents();
   } else if (COMMAND === COMMAND_CLONE_EVENT) {
     await cloneEvent();
+  } else if (COMMAND === COMMAND_EVENT_REGISTRATIONS) {
+    await loadEventRegistrations();
   }
 }
 
