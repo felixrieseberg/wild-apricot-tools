@@ -1,6 +1,7 @@
 import ora from "ora";
 import path from "path";
 import fs from "fs";
+import lodash from "lodash";
 
 import { DATA, DRY_RUN, EVENT_NAME, START_DATE } from "./config.js";
 import { getEventName } from "./helpers.js";
@@ -61,11 +62,14 @@ export async function updateEvents() {
   for (const event of events) {
     console.log(`• ${getEventName(event)}`);
 
+    // Deep merge the received object and the update
+    const finalUpdate = lodash.merge({}, event, edit);
+
     if (!DRY_RUN) {
-      await loadUpdateWaEvent(event, { ...edit, Id: event.Id });
+      await loadUpdateWaEvent(event, { ...finalUpdate, Id: event.Id });
     } else {
       console.log(`DRY RUN: Would update event with ID ${event.Id} with data:`);
-      console.log(JSON.stringify(edit, null, 2));
+      console.log(JSON.stringify(finalUpdate, null, 2));
     }
   }
 }
