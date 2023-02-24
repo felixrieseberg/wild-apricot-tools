@@ -11,6 +11,7 @@ let optionDefinitions: Array<commandLineArgs.OptionDefinition> = [];
 export const COMMAND_SLACK_SYNC = "slack-sync";
 export const COMMAND_UPDATE_EVENTS = "update-events";
 export const COMMAND_CLONE_EVENT = "clone-event";
+export const COMMAND_GET_EVENT = "get-event";
 export const COMMAND_EVENT_REGISTRATIONS = "event-registrations";
 export const COMMAND = mainOptions.command;
 
@@ -39,14 +40,19 @@ if (COMMAND === COMMAND_SLACK_SYNC) {
     { name: "schedule", type: String },
     { name: "end-date", type: String },
   ];
-} else if (COMMAND_EVENT_REGISTRATIONS) {
+} else if (COMMAND === COMMAND_EVENT_REGISTRATIONS) {
   optionDefinitions = [
     ...defaultOptions,
     { name: "event-name", type: String },
     { name: "start-date", type: String },
   ];
+} else if (COMMAND === COMMAND_GET_EVENT) {
+  optionDefinitions = [
+    ...defaultOptions,
+    { name: "event-id", type: String },
+    { name: "out", type: String },
+  ];
 }
-
 const options = commandLineArgs(optionDefinitions, { argv });
 
 export const WILD_APRICOT_KEY = options["wild-apricot-api-key"];
@@ -67,6 +73,10 @@ checkParameters(COMMAND_UPDATE_EVENTS, [
   "start-date",
   "data",
 ]);
+
+// Get event
+export const OUT = options["out"];
+checkParameters(COMMAND_GET_EVENT, ["wild-apricot-api-key", "event-id"]);
 
 // Clone events
 export const EVENT_ID = parseInt(options["event-id"], 10);

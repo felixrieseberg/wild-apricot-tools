@@ -7,3 +7,4 @@ slack-archive
 lib
 yarn-error.log
 wild-apricot-slack-sync-report.txt
+event.json

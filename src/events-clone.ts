@@ -49,6 +49,8 @@ export async function cloneEvent() {
 
     await updateWaEvent(editOptions);
 
-    spinner.stopAndPersist({ text: `Added event with id ${clonedEventId}` });
+    spinner.stopAndPersist({
+      text: `Added event from ${startDate} to ${endDate} with id ${clonedEventId}`,
+    });
   }
 }

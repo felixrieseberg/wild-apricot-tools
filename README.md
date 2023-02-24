@@ -23,6 +23,22 @@ npx wild-apricot-tools slack-sync --wild-apricot-api-key="etwl..." --slack-token
 
 Then, find a file called `wild-apricot-slack-sync-report.txt` in your working directory. It'll contain a list of people to invite and to deactivate.
 
+## Get Event
+Gets the JSON representation of a given event id.
+
+### Usage
+
+```
+--wild-apricot-api-key="abc..."     Wild Apricot API Key
+--event-id="123456"                 Event Id
+--out="out.json"                    (Optional) writes the data to a file
+--verbose                           Enable verbose mode
+```
+
+```
+npx wild-apricot-tools get-event --event-id="123456" --wild-apricot-api-key="..."
+```
+
 ## Update Events
 You have a bunch of events. You would like to update them all.
 
@@ -47,6 +63,15 @@ npx wild-apricot-tools update-events --start-date="2023-01-01" --event-name="[Sw
 The update data will be sent directly to Wild Apricot. For the data model, please see
 [API docs](https://app.swaggerhub.com/apis-docs/WildApricot/wild-apricot_public_api/7.24.0) and look for the model "EventEditParams". 
 
+Please note that the passed edit data will be deep-merged using Lodash's merge function. This is useful if you want to, for instance, just edit the event description:
+
+```json
+{
+  "Details": {
+    "DescriptionHtml": "My new description"
+  }
+}
+```
 
 ## Clone Event
 You have one event. You want it cloned, say, every week for the rest of the year. Uses the current system's time zone.

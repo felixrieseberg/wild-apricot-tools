@@ -8,11 +8,13 @@ import {
   COMMAND_UPDATE_EVENTS,
   COMMAND_SLACK_SYNC,
   WILD_APRICOT_KEY,
+  COMMAND_GET_EVENT,
 } from "./config.js";
 import { slackSync } from "./slack-sync.js";
 import { updateEvents } from "./events-update.js";
 import { cloneEvent } from "./events-clone.js";
 import { loadEventRegistrations } from "./events-registrations.js";
+import { getEvent } from "./event-get.js";
 
 async function loadWaAuth() {
   let spinner = ora(
@@ -66,6 +68,8 @@ export async function main() {
     await cloneEvent();
   } else if (COMMAND === COMMAND_EVENT_REGISTRATIONS) {
     await loadEventRegistrations();
+  } else if (COMMAND === COMMAND_GET_EVENT) {
+    await getEvent();
   }
 }
 
