@@ -13,7 +13,6 @@ Because Slack limits fully automated invites to Enterprise plans only, this tool
 ```
 --wild-apricot-api-key="abc..."     Wild Apricot API Key
 --slack-token="xo..."               Slack Bot Token
---start-date="2024-12-31"           Start Date (used with "greater or equal")
 --verbose                           Enable verbose mode
 ```
 
