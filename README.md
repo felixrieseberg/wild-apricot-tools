@@ -87,7 +87,7 @@ You have one event. You want it cloned, say, every week for the rest of the year
 ```
 
 ```
-npx wild-apricot-tools clone-events --event-id="12345" --end-date="2023-12-01" --schedule="weekly" --wild-apricot-api-key="..."
+npx wild-apricot-tools clone-event --event-id="12345" --end-date="2023-12-01" --schedule="weekly" --wild-apricot-api-key="..."
 ```
 
 ## Getting a Wild Apricot API Key

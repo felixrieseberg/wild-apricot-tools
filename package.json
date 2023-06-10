@@ -8,7 +8,8 @@
     "cli": "ts-node src/cli.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "prepublishOnly": "npm run compile"
   },
   "type": "module",
   "bin": {
