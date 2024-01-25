@@ -33,6 +33,8 @@ function getData(): Partial<WildApricot.EventEdit> {
   try {
     const data = JSON.parse(DATA);
 
+    console.log(data);
+
     if (data && Object.keys(data).length > 0) {
       return data;
     }
@@ -42,7 +44,7 @@ function getData(): Partial<WildApricot.EventEdit> {
 
   // If we get here, we didn't find the file
   console.log(
-    `We tried to look for a file at ${DATA} and to load data as JSON, but neither worked.`
+    `We tried to look for a file at ${DATA} and to load data as JSON, but neither worked.`,
   );
   console.log(`Please check the --data input and try again.`);
   process.exit(-1);

@@ -8,3 +8,5 @@ lib
 yarn-error.log
 wild-apricot-slack-sync-report.txt
 event.json
+analysis.json
+registrations.json

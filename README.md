@@ -48,7 +48,7 @@ You have a bunch of events. You would like to update them all.
 --event-name="[Swim]..."            Event Name
 --start-date="2024-12-25"           When do we start looking for events?
 --data="data.json"                  Path to a JSON file containing updates - or raw JSON
---data="{ Name: \"New Name\"}"
+--data="{ \"Name\": \"New Name\"}"
 --dry-run                           Dry run only, only print events to update
 --verbose                           Enable verbose mode
 ```
@@ -88,6 +88,22 @@ You have one event. You want it cloned, say, every week for the rest of the year
 
 ```
 npx wild-apricot-tools clone-event --event-id="12345" --end-date="2023-12-01" --schedule="weekly" --wild-apricot-api-key="..."
+```
+
+## Get Event Registrations
+Who signed up? How often? Where they on the waitlist? Analyse your data.
+
+### Usage
+
+```
+--wild-apricot-api-key="abc..."     Wild Apricot API Key
+--event-name="[Swim]..."            Event Name
+--start-date="2024-12-25"           When do we start looking for events?
+--verbose                           Enable verbose mode
+```
+
+```
+npx wild-apricot-tools npm run cli -- event-registrations --start-date="2023-01-01" --event-name="Swim" --wild-apricot-api-key="..."
 ```
 
 ## Getting a Wild Apricot API Key

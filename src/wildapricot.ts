@@ -18,7 +18,7 @@ export interface WildApricotAuthResponse {
       AccountId: Number;
       SecurityProfileId: Number;
       AvailableScopes: Array<String>;
-    }
+    },
   ];
 }
 
@@ -190,7 +190,7 @@ export interface WildApricotEvents {
 }
 
 export async function getWaEvents(
-  options: GetWaEventsOptions
+  options: GetWaEventsOptions,
 ): Promise<Array<WildApricot.Event>> {
   const { Id } = _cachedAccount;
   const { access_token } = _cachedAuth;
@@ -257,7 +257,7 @@ export async function getWaEvent(id: number): Promise<WildApricot.Event> {
 }
 
 export async function updateWaEvent(
-  edit: WildApricot.EventEdit
+  edit: WildApricot.EventEdit,
 ): Promise<WildApricot.Event> {
   const { Id } = _cachedAccount;
   const { access_token } = _cachedAuth;
@@ -325,7 +325,7 @@ export async function cloneWaEvent(id: number): Promise<number> {
 }
 
 export async function getWaEventRegistrations(
-  id: string | number
+  id: string | number,
 ): Promise<Array<WildApricot.EventRegistration>> {
   const { Id } = _cachedAccount;
   const { access_token } = _cachedAuth;
@@ -359,7 +359,7 @@ export async function getWaEventRegistrations(
 async function checkResponse(response: Response) {
   if (!response.ok) {
     console.log(
-      `Response not ok (was: ${response.status} ${response.statusText})`
+      `Response not ok (was: ${response.status} ${response.statusText})`,
     );
     console.log(await response.text());
 
