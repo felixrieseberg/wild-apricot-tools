@@ -6,3 +6,5 @@ out
 src
 yarn-error.log
 wild-apricot-slack-sync-report.txt
+registrations.json
+analysis.json
