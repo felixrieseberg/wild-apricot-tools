@@ -1,7 +1,8 @@
 export interface Member {
-  firstName: String;
-  lastName: String;
-  email: String;
+  firstName: string;
+  lastName: string;
+  email: string;
+  id: number;
 }
 
 export module WildApricot {

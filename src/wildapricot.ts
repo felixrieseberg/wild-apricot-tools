@@ -81,17 +81,17 @@ export async function getWaAccount(): Promise<WildApricotAccount> {
 
 export interface WildApricotContact {
   Id: 0;
-  Url: String;
-  FirstName: String;
-  LastName: String;
-  Organization: String;
-  Email: String;
-  DisplayName: String;
-  ProfileLastUpdated: String;
+  Url: string;
+  FirstName: string;
+  LastName: string;
+  Organization: string;
+  Email: string;
+  DisplayName: string;
+  ProfileLastUpdated: string;
   MembershipLevel: {
     Id: 0;
-    Url: String;
-    Name: String;
+    Url: string;
+    Name: string;
   };
   MembershipEnabled: boolean;
   Status:
@@ -141,13 +141,22 @@ export async function getWaFields() {
   }
 }
 
-export async function getWaMembers(): Promise<Array<Member>> {
+interface GetWaMembersOptions {
+  simpleQuery?: string;
+}
+
+export async function getWaMembers(
+  options: GetWaMembersOptions = {},
+): Promise<Array<Member>> {
   const { Id } = _cachedAccount;
   const { access_token } = _cachedAuth;
   const async = `?$async=false`;
   const select = `&$select=email`;
   const filter = `&$filter='Membership status.Id' eq 1 AND Archived eq 'False'`;
-  const url = `${API_BASE_URL}/accounts/${Id}/contacts${async}${select}${filter}`;
+  const simpleQuery = options.simpleQuery
+    ? `&simpleQuery=${options.simpleQuery}`
+    : "";
+  const url = `${API_BASE_URL}/accounts/${Id}/contacts${async}${simpleQuery}${select}${filter}`;
 
   const response = await fetch(url, {
     headers: {
@@ -172,6 +181,7 @@ export async function getWaMembers(): Promise<Array<Member>> {
     firstName: contact.FirstName,
     lastName: contact.LastName,
     email: contact.Email,
+    id: contact.Id,
   }));
 
   return members;
@@ -241,6 +251,55 @@ export async function getWaEvent(id: number): Promise<WildApricot.Event> {
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${access_token}`,
+    },
+  });
+
+  await checkResponse(response);
+
+  const parsedResponse = (await response.json()) as WildApricot.Event;
+
+  if (VERBOSE) {
+    console.log(`Wild Apricot response:`);
+    console.log(parsedResponse);
+  }
+
+  return parsedResponse;
+}
+
+export interface CreateWaEventRegistrationOptions {
+  eventId: number;
+  contactId: number;
+  registrationTypeId: number;
+}
+
+export async function createWaEventRegistration(
+  options: CreateWaEventRegistrationOptions,
+) {
+  const { Id } = _cachedAccount;
+  const { access_token } = _cachedAuth;
+  const url = `${API_BASE_URL}/accounts/${Id}/eventregistrations`;
+  const body = JSON.stringify({
+    Event: {
+      Id: options.eventId,
+    },
+    Contact: {
+      Id: options.contactId,
+    },
+    RegistrationTypeId: options.registrationTypeId,
+  });
+
+  if (VERBOSE) {
+    console.log(`Calling POST ${url}`);
+    console.log({ body });
+  }
+
+  const response = await fetch(url, {
+    method: "POST",
+    body,
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${access_token}`,
+      "Content-Type": "application/json",
     },
   });
 

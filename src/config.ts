@@ -13,6 +13,7 @@ export const COMMAND_UPDATE_EVENTS = "update-events";
 export const COMMAND_CLONE_EVENT = "clone-event";
 export const COMMAND_GET_EVENT = "get-event";
 export const COMMAND_EVENT_REGISTRATIONS = "event-registrations";
+export const COMMAND_EVENT_REGISTRATION = "event-registration";
 export const COMMAND = mainOptions.command;
 
 const defaultOptions = [
@@ -52,7 +53,17 @@ if (COMMAND === COMMAND_SLACK_SYNC) {
     { name: "event-id", type: String },
     { name: "out", type: String },
   ];
+} else if (COMMAND === COMMAND_EVENT_REGISTRATION) {
+  optionDefinitions = [
+    ...defaultOptions,
+    { name: "event-name", type: String },
+    { name: "start-date", type: String },
+    { name: "when", type: String },
+    { name: "users", type: String, multiple: true },
+    { name: "registration-type", type: String },
+  ];
 }
+
 const options = commandLineArgs(optionDefinitions, { argv });
 
 export const WILD_APRICOT_KEY = options["wild-apricot-api-key"];
@@ -95,6 +106,11 @@ checkParameters(COMMAND_EVENT_REGISTRATIONS, [
   "event-name",
   "start-date",
 ]);
+
+// Get event registration
+export const WHEN: string = options["when"];
+export const USERS: string[] = options["users"];
+export const REGISTRATION_TYPE: string = options["registration-type"];
 
 // Check parameters
 function checkParameters(command: string, params: Array<string>) {
