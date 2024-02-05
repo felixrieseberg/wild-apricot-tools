@@ -1,4 +1,4 @@
-import { parseISO } from "date-fns";
+import { addSeconds, parseISO } from "date-fns";
 import {
   EVENT_NAME,
   REGISTRATION_TYPE,
@@ -81,9 +81,9 @@ export async function registerEvent() {
   console.log(
     `Corrected:                       ${correctedRegistrationAvailableFrom}`,
   );
-  const registrationAvailableFrom = parseISO(
+  const registrationAvailableFrom = addSeconds(parseISO(
     correctedRegistrationAvailableFrom,
-  );
+  ), 15);
   console.log(
     `Corrected for local time:        ${registrationAvailableFrom.toLocaleString()}`,
   );

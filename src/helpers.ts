@@ -1,11 +1,6 @@
 import ora from "ora";
 import {
-  formatDuration,
-  Duration,
-  intervalToDuration,
-  format,
   differenceInSeconds,
-  addSeconds,
 } from "date-fns";
 
 import { WildApricot } from "./interfaces";
@@ -16,7 +11,10 @@ export function getEventName(event: WildApricot.Event) {
 
 export function countdownUntil(targetTime: Date): Promise<void> {
   return new Promise<void>((resolve) => {
-    const spinner = ora(`Waiting until ${targetTime.toLocaleString()}`).start();
+    const spinner = ora({
+      text: `Waiting until ${targetTime.toLocaleString()}`,
+      hideCursor: false,
+    }).start();
     const currentTime = new Date();
     const timeDifference = differenceInSeconds(targetTime, currentTime);
 
