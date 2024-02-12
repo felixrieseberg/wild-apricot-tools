@@ -25,14 +25,14 @@ export async function loadEventRegistrations() {
     console.log(
       `• ${getEventName(event)} (${event.Id}) has ${
         event.ConfirmedRegistrationsCount
-      } registrations}`,
+      } registrations}`
     );
 
     event.registrations = await loadWaEventRegistrations(event.Id);
 
     for (const registration of event.registrations) {
       console.log(
-        `• ${registration.DisplayName}: ${registration.Status} (${registration.Id}))`,
+        `• ${registration.DisplayName}: ${registration.Status} (${registration.Id}))`
       );
     }
   }
@@ -92,22 +92,24 @@ async function analysis(events: EventWithRegistrations[]) {
   }
 
   const sortedForConfirmed = Object.entries(result.byName).sort(
-    (a, b) => b[1].confirmedCount - a[1].confirmedCount,
+    (a, b) => b[1].confirmedCount - a[1].confirmedCount
   );
   const sortedForWaitlisted = Object.entries(result.byName).sort(
-    (a, b) => b[1].waitlistedCount - a[1].waitlistedCount,
+    (a, b) => b[1].waitlistedCount - a[1].waitlistedCount
   );
 
   const arrConfirmed = Object.values(result.byName).map(
-    (v) => v.confirmedCount,
+    (v) => v.confirmedCount
   );
   const arrWaitlisted = Object.values(result.byName).map(
-    (v) => v.waitlistedCount,
+    (v) => v.waitlistedCount
   );
 
   console.log(`Waitlisted`);
   console.log(
-    `  People: ${Object.values(result.byName).filter((v) => v.waitlistedCount > 0).length}`,
+    `  People: ${
+      Object.values(result.byName).filter((v) => v.waitlistedCount > 0).length
+    }`
   );
   console.log(`  Min: ${getMin(arrWaitlisted)}`);
   console.log(`  Max: ${getMax(arrWaitlisted)}`);
@@ -116,7 +118,9 @@ async function analysis(events: EventWithRegistrations[]) {
 
   console.log(`Confirmed`);
   console.log(
-    `  People: ${Object.values(result.byName).filter((v) => v.confirmedCount > 0).length}`,
+    `  People: ${
+      Object.values(result.byName).filter((v) => v.confirmedCount > 0).length
+    }`
   );
   console.log(`  Min: ${getMin(arrConfirmed)}`);
   console.log(`  Max: ${getMax(arrConfirmed)}`);

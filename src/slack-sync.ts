@@ -39,11 +39,11 @@ async function loadSlackUsers() {
 
 async function writeReport(
   toInviteToSlack: Array<Member>,
-  toRemoveFromSlack: Array<User>,
+  toRemoveFromSlack: Array<User>
 ) {
   const targetPath = path.join(
     process.cwd(),
-    "wild-apricot-slack-sync-report.txt",
+    "wild-apricot-slack-sync-report.txt"
   );
   const spinner = ora(`Writing report to disk (${targetPath})`).start();
 
@@ -93,12 +93,12 @@ export async function slackSync() {
 
   for (const member of waMembers) {
     const inSlack = slackUsers.some(
-      (v) => v.profile?.email?.toLowerCase() === member.email?.toLowerCase(),
+      (v) => v.profile?.email?.toLowerCase() === member.email?.toLowerCase()
     );
 
     if (VERBOSE) {
       console.log(
-        `Wild Apricot Member ${member.firstName} ${member.lastName} <${member.email}> in Slack: ${inSlack}`,
+        `Wild Apricot Member ${member.firstName} ${member.lastName} <${member.email}> in Slack: ${inSlack}`
       );
     }
 
@@ -109,12 +109,12 @@ export async function slackSync() {
 
   for (const user of slackUsers) {
     const inWaMembers = waMembers.some(
-      (v) => v.email.toLowerCase() === user.profile?.email?.toLowerCase(),
+      (v) => v.email.toLowerCase() === user.profile?.email?.toLowerCase()
     );
 
     if (VERBOSE) {
       console.log(
-        `Slack user ${user.name} <${user.profile?.email}> is Wild Apricot member: ${inWaMembers}`,
+        `Slack user ${user.name} <${user.profile?.email}> is Wild Apricot member: ${inWaMembers}`
       );
     }
 

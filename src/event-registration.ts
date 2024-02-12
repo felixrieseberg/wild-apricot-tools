@@ -17,7 +17,7 @@ import {
 export async function registerEvent() {
   // Get the matching users
   const users = await Promise.all(
-    USERS.map(async (user) => (await getWaMembers({ simpleQuery: user }))[0]),
+    USERS.map(async (user) => (await getWaMembers({ simpleQuery: user }))[0])
   );
 
   console.log(`\nFound ${users.length} users`);
@@ -25,9 +25,9 @@ export async function registerEvent() {
     users
       .map(
         (user) =>
-          `${user.firstName} ${user.lastName} (${user.email}) [${user.id}]`,
+          `${user.firstName} ${user.lastName} (${user.email}) [${user.id}]`
       )
-      .join("\n"),
+      .join("\n")
   );
   console.log();
 
@@ -47,7 +47,9 @@ export async function registerEvent() {
   const event = await getWaEvent(eventCandidate.Id);
   const eventStartDate = new Date(event.StartDate);
   console.log(
-    `\nRegistering for event: "${event.Name}" (${event.Id}) on ${eventStartDate.toLocaleDateString()}`,
+    `\nRegistering for event: "${event.Name}" (${
+      event.Id
+    }) on ${eventStartDate.toLocaleDateString()}`
   );
 
   // Get the registration types
@@ -57,13 +59,13 @@ export async function registerEvent() {
 
   if (!registrationType) {
     console.log(
-      `Could not find a registration type matching "${REGISTRATION_TYPE}"`,
+      `Could not find a registration type matching "${REGISTRATION_TYPE}"`
     );
     console.log(`Available registration types:`);
     console.log(
       event.Details.RegistrationTypes.map(
-        (type) => `${type.Name} (${type.Id})`,
-      ).join("\n"),
+        (type) => `${type.Name} (${type.Id})`
+      ).join("\n")
     );
     process.exit();
   }
@@ -71,21 +73,22 @@ export async function registerEvent() {
   // Display when the registration is available from, which is a little akward because incorrect
   console.log(`\nIdentifying when registration is available...`);
   console.log(
-    `Registration available from:     ${registrationType.AvailableFrom}`,
+    `Registration available from:     ${registrationType.AvailableFrom}`
   );
   console.log(`Event start date:                ${event.StartDate}`);
   const correctedRegistrationAvailableFrom = extendDateStringWithTimezoneOffset(
     event.StartDate,
-    registrationType.AvailableFrom,
+    registrationType.AvailableFrom
   );
   console.log(
-    `Corrected:                       ${correctedRegistrationAvailableFrom}`,
+    `Corrected:                       ${correctedRegistrationAvailableFrom}`
   );
-  const registrationAvailableFrom = addSeconds(parseISO(
-    correctedRegistrationAvailableFrom,
-  ), 15);
+  const registrationAvailableFrom = addSeconds(
+    parseISO(correctedRegistrationAvailableFrom),
+    10
+  );
   console.log(
-    `Corrected for local time:        ${registrationAvailableFrom.toLocaleString()}`,
+    `Corrected for local time:        ${registrationAvailableFrom.toLocaleString()}`
   );
 
   // Wait
@@ -94,7 +97,7 @@ export async function registerEvent() {
   // Let's create a registration
   for (const user of users) {
     console.log(
-      `\nRegistering user: ${user.firstName} ${user.lastName} (${user.email}) [${user.id}]`,
+      `\nRegistering user: ${user.firstName} ${user.lastName} (${user.email}) [${user.id}]`
     );
 
     const result = await createWaEventRegistration({
