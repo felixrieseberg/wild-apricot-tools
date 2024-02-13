@@ -19,7 +19,7 @@ export async function getSlackUsers() {
     if (!response || !response.members) {
       console.warn(
         `Slack users.list response page contained no members`,
-        response
+        response,
       );
       continue;
     }

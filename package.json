@@ -6,9 +6,9 @@
   "scripts": {
     "prettier": "npx prettier --write src/*",
     "cli": "tsx src/cli.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
     "watch": "tsc -w",
+    "test": "tsx --test test/**/*.test.ts",
     "prepublishOnly": "npm run compile"
   },
   "type": "module",
@@ -21,14 +21,14 @@
     "command-line-args": "^5.2.1",
     "date-fns": "^3.3.1",
     "lodash": "^4.17.21",
-    "node-fetch": "^3.2.10",
-    "ora": "^6.1.2"
+    "node-fetch": "^3.3.2",
+    "ora": "^8.0.1"
   },
   "devDependencies": {
     "@types/command-line-args": "^5.2.0",
     "@types/inquirer": "^9.0.1",
     "@types/lodash": "^4.14.191",
-    "tsx": "^4.7.0",
-    "typescript": "^4.8.3"
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
   }
 }

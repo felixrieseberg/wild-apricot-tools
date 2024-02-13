@@ -37,7 +37,7 @@ export function countdownUntil(targetTime: Date): Promise<void> {
 
 export function extendDateStringWithTimezoneOffset(
   date1: string,
-  date2: string
+  date2: string,
 ): string {
   const timezoneOffset = date1.substr(-6);
   const timezoneOffset2 = date2.substr(-6);

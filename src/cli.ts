@@ -20,13 +20,13 @@ import { registerEvent } from "./event-registration.js";
 
 async function loadWaAuth() {
   let spinner = ora(
-    `Authenticating with Wild Apricot (using API KEY ${WILD_APRICOT_KEY})`
+    `Authenticating with Wild Apricot (using API KEY ${WILD_APRICOT_KEY})`,
   ).start();
 
   try {
     const auth = await getWaAuth({ apiKey: WILD_APRICOT_KEY });
     spinner.succeed(
-      `Authenticated with Wild Apricot (Token: ${auth.access_token})`
+      `Authenticated with Wild Apricot (Token: ${auth.access_token})`,
     );
   } catch (error) {
     spinner.fail(`Could not get Wild Apricot authentication. The error was:`);
@@ -52,7 +52,7 @@ async function loadWaAccounts() {
 export async function main() {
   if (!COMMAND) {
     console.log(
-      `No command specified. Please see the wild-apricot-tools README!`
+      `No command specified. Please see the wild-apricot-tools README!`,
     );
     process.exit();
   }

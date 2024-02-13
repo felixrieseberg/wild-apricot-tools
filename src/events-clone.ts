@@ -14,7 +14,7 @@ export async function cloneEvent() {
   console.log(`Determined that we need to add ${datesToCreate.length} events:`);
   for (const { startDate, endDate } of datesToCreate) {
     console.log(
-      ` • ${format(startDate, "PPPPpppp")} to ${format(endDate, "PPPPpppp")}`
+      ` • ${format(startDate, "PPPPpppp")} to ${format(endDate, "PPPPpppp")}`,
     );
   }
 

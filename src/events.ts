@@ -39,7 +39,7 @@ export async function loadWaEvents(options: LoadWaEventsOptions) {
 
 export async function loadUpdateWaEvent(
   event: WildApricot.Event,
-  edit?: WildApricot.EventEdit
+  edit?: WildApricot.EventEdit,
 ) {
   const name = getEventName(event);
   const spinner = ora(`Updating ${name}`).start();
@@ -62,11 +62,11 @@ export async function loadWaEventRegistrations(id: string | number) {
     registrations.push(...(await getWaEventRegistrations(id)));
 
     spinner.succeed(
-      `Got ${registrations.length} registrations for event ${id}`
+      `Got ${registrations.length} registrations for event ${id}`,
     );
   } catch (error) {
     spinner.fail(
-      `Could not get registrations for Wild Apricot event ${id}. The error was:`
+      `Could not get registrations for Wild Apricot event ${id}. The error was:`,
     );
     console.log(error);
   }
@@ -80,7 +80,7 @@ interface DatePair {
 }
 
 export function getDatesFromSchedule(
-  sourceEvent: WildApricot.Event
+  sourceEvent: WildApricot.Event,
 ): Array<DatePair> {
   const result: Array<DatePair> = [];
   const startDate = parseISO(sourceEvent.StartDate);
